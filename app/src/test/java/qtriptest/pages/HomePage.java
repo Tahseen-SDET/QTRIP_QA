@@ -29,21 +29,33 @@ public class HomePage {
 
     }
 
-    public void navigateToHomePage() {
-        driver.get("url");
+    public void navigateToHomePage() throws InterruptedException {
+        driver.get("https://qtripdynamic-qa-frontend.vercel.app/");
+        Thread.sleep(3000);
     }
 
+    // public void searchCityInvalid(String cityName) throws InterruptedException {
+        
+    // }
+
     public void searchCity(String cityName) throws InterruptedException {
-        Assertion assertion = new Assertion();
-        citySearch.sendKeys(cityName);
-        Thread.sleep(2000);
-        if(noResults.isDisplayed()) {
-            assertion.assertTrue(noResults.getText().contains("No City found"));
-        }
-        else{
-            assertion.assertTrue(cityResults.getText().contains(" Bengaluru "));
+        try {
+            Assertion assertion = new Assertion();
+            citySearch.sendKeys(cityName);
+            Thread.sleep(2000);
+            assertion.assertTrue(cityResults.getText().contains(cityName));
             cityResults.click();
             Thread.sleep(3000);
+        } catch (Exception e) {
+            //TODO: handle exception
+            Assertion assertion = new Assertion();
+            // citySearch.sendKeys(cityName);
+            Thread.sleep(2000);
+            if(noResults.isDisplayed()) {
+            assertion.assertTrue(noResults.getText().contains("No City found"));
+            citySearch.clear();
         }
+        }
+        
     }
 }

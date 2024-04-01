@@ -42,7 +42,7 @@ public class RegisterPage {
         driver.get("https://qtripdynamic-qa-frontend.vercel.app/");
         goToRegister.click();
         assertion.assertTrue(driver.getCurrentUrl().contains("register"), "Failed to redirect to register page");
-        logStatus("Register Test", "navigate to register page", "Success");
+        // logStatus("Register Test", "navigate to register page", "Success");
         Thread.sleep(3000);
         
     }
@@ -67,7 +67,7 @@ public class RegisterPage {
             registerNowElement.click();
             Thread.sleep(5000);
             status = driver.getCurrentUrl().endsWith("/login");
-            logStatus("Register Test", "navigate to Login page after registration", "Success");
+            // logStatus("Register Test", "navigate to Login page after registration", "Success");
             this.testUserForAll = test_username_email;
         } catch (Exception e) {
             //TODO: handle exception

@@ -1,5 +1,6 @@
 package qtriptest.tests;
 import qtriptest.DP;
+import qtriptest.DriverSingleton;
 import qtriptest.pages.LoginPage;
 import qtriptest.pages.RegisterPage;
 import java.net.*;
@@ -29,15 +30,18 @@ public class testCase_01 {
 
     @BeforeClass(alwaysRun = true, enabled = true)
 	public void createDriver() throws MalformedURLException {
-		logStatus("driver", "Initializing driver", "Started");
-		final DesiredCapabilities capabilities = new DesiredCapabilities();
-		capabilities.setBrowserName(BrowserType.CHROME);
-		driver = new RemoteWebDriver(new URL("http://localhost:8082/wd/hub"), capabilities);
-		driver.manage().window().maximize();
-		logStatus("driver", "Initializing driver", "Success");
+		DriverSingleton singleton = DriverSingleton.getInstanceOfWebdriver();
+		driver = singleton.getDriver();
+		// logStatus("driver", "Initializing driver", "Started");
+		// final DesiredCapabilities capabilities = new DesiredCapabilities();
+		// capabilities.setBrowserName(BrowserType.CHROME);
+		// driver = new RemoteWebDriver(new URL("http://localhost:8082/wd/hub"), capabilities);
+		// driver.manage().window().maximize();
+		// logStatus("driver", "Initializing driver", "Success");
 	}
+	
 
-	@Test(description = "Test Case Id 1",dataProvider = "data-provider", dataProviderClass = DP.class, enabled = true,priority = 1)
+	@Test(description = "Test Case Id 1",dataProvider = "data-provider", dataProviderClass = DP.class, enabled = true, priority = 1, groups = "Login Flow")
 	public void TestCase01(String username, String password) throws InterruptedException {
 		try {
 			logStatus("Register & Login Test", "New User Registration", "STARTED");
